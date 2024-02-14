@@ -1,8 +1,10 @@
 from sympy import *
 
+x = symbols('x')
+
 
 def half_division(equation, interval: tuple, eps: float) -> float:
-    x = symbols('x')
+    # x = symbols('x')
     a, b = interval
 
     if equation.subs(x, a) * equation.subs(x, b) >= 0:
@@ -24,7 +26,6 @@ def half_division(equation, interval: tuple, eps: float) -> float:
 
 
 if __name__ == '__main__':
-    x = symbols('x')
     my_equation = x ** 3 - 6 * x ** 2 + 11 * x - 6
     my_interval = (0, 5)
     my_eps = 1e-6

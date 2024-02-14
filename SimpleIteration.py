@@ -21,7 +21,7 @@ def simple_iteration(equation, initial_approx: float, eps: float) -> float:
 
 if __name__ == '__main__':
     x = symbols('x')
-    my_equation = x**3 - 2*x - 5
+    my_equation = x**2 - 2*x - 5
     my_initial_approx = 3
     my_eps = 1e-5
     my_root = simple_iteration(my_equation, my_initial_approx, my_eps)

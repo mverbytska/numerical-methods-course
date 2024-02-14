@@ -1,8 +1,9 @@
 from sympy import *
 
+x = symbols('x')
+
 
 def simple_iteration(equation, initial_approx: float, eps: float) -> float:
-    x = symbols('x')
     g_func = solve(equation, x)[0]
 
     if abs(g_func.diff(x).subs(x, initial_approx)) >= 1:
@@ -20,7 +21,6 @@ def simple_iteration(equation, initial_approx: float, eps: float) -> float:
 
 
 if __name__ == '__main__':
-    x = symbols('x')
     my_equation = x**2 - 2*x - 5
     my_initial_approx = 3
     my_eps = 1e-5

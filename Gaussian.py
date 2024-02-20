@@ -13,10 +13,14 @@ def partial_pivoting(matrix: np.array, n: int) -> np.array:
         for j in range(i + 1, n):
             factor = matrix[j, i] / matrix[i, i]
             matrix[j] -= factor * matrix[i]
+
+        # singularity check-up (if there is zero-element at the principal diagonal => rows are not linearly independent
+        if not matrix[i][i]:
+            raise Exception('Matrix is singular => it is unsolvable by using Gaussian elimination')
     return matrix
 
 
-def solution_extraction(matrix: np.array, n: int) -> list:
+def solution_extraction(matrix: np.array, n: int) -> np.array:
     ref_matrix = partial_pivoting(matrix, n)
     y_list = np.zeros(n)
     for i in range(n - 1, -1, -1):

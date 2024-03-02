@@ -1,31 +1,26 @@
-from sympy import *
-
-x = symbols('x')
+import math
 
 
-def simple_iteration(equation, initial_approx: float, eps: float) -> float:
-    g_func = solve(equation, x)[0]
+def simple_iteration(eq, initial_approx: float, eps: float, max_iterations=10000) -> (float, int):
+    x_prev = initial_approx
+    iterations = 0
+    for _ in range(max_iterations):
+        x_next = eq(x_prev)
+        iterations += 1
+        difference = abs(x_next - x_prev)
+        if difference < eps:
+            return x_next, iterations
+        x_prev = x_next
+    raise Exception(f'Method failed to converge in {max_iterations} iterations ')
 
-    if abs(g_func.diff(x).subs(x, initial_approx)) >= 1:
-        raise Exception('Cannot does not converge with this initial approximation')
 
-    current_root = initial_approx
-    for i in range(1000):
-        next_root = g_func.subs(x, current_root)
-        if re(Abs(next_root - current_root).evalf()) < eps:
-            return next_root
-
-        current_root = next_root
-
-    return current_root
+def equation(x):
+    # return x + 5
+    return math.atan(math.sqrt(x + 1))
 
 
 if __name__ == '__main__':
-    my_equation = x**2 - 2*x - 5
-    my_initial_approx = 3
-    my_eps = 1e-5
-    my_root = simple_iteration(my_equation, my_initial_approx, my_eps)
-    print(f'Approximated root: {my_root}')
-
-
-
+    my_eps = 1e-6
+    my_approx = 2
+    my_root, iterations_number = simple_iteration(equation, my_approx, my_eps)
+    print(f'Approximated root: {my_root}\nNumber of iterations: {iterations_number}')
